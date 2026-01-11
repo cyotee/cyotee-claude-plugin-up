@@ -1,10 +1,10 @@
 ---
-description: Bootstrap context with CLAUDE.md AND read PRD.md for project requirements
+description: Bootstrap context with CLAUDE.md AND read PRD.md (alias for /up:plan)
 ---
 
 # Context Bootstrap with Project Requirements
 
-Read project documentation AND the global Product Requirements Document (PRD.md).
+This is an alias for `/up:plan`. See that command for full documentation.
 
 ## Instructions
 
@@ -29,35 +29,6 @@ Read project documentation AND the global Product Requirements Document (PRD.md)
    - Brief technical overview (from CLAUDE.md)
    - Current task status summary (from INDEX.md if exists)
    - Recommended next tasks to work on
-
-## Example Output
-
-```
-# Project Context Loaded
-
-## Vision (from PRD.md)
-[Project name] - [1-2 sentence vision statement]
-
-## Key Requirements
-- [Requirement 1]
-- [Requirement 2]
-- [Requirement 3]
-
-## Technical Overview (from CLAUDE.md)
-- Architecture: [key patterns]
-- Dependencies: [key libs/frameworks]
-
-## Task Status (from tasks/INDEX.md)
-| # | Title | Status | Layer |
-|---|-------|--------|-------|
-| I-1 | ... | ✅ Complete | IndexedEx |
-| I-2 | ... | 🚀 In Progress | IndexedEx |
-
-Ready tasks: [list tasks ready for agent]
-Blocked tasks: [list blocked tasks and why]
-
-Ready to assist with this codebase.
-```
 
 ## If PRD.md doesn't exist
 

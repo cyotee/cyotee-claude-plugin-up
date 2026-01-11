@@ -1,6 +1,6 @@
 ---
 description: Bootstrap context by reading CLAUDE.md and any referenced documentation
-argument-hint: [plan|prompt]
+argument-hint: [plan|prd|prompt]
 ---
 
 # Context Bootstrap Command
