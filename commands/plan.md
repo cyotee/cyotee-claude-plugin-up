@@ -19,10 +19,11 @@ Read project documentation AND the global Product Requirements Document (PRD.md)
    - Target users and use cases
    - Success metrics
 
-4. **Check task status**: Determine the layer you're in and look for the tasks directory:
-   - IndexedEx layer: `tasks/INDEX.md`
-   - daosys layer: `lib/daosys/tasks/INDEX.md`
-   - Crane layer: `lib/daosys/lib/crane/tasks/INDEX.md`
+4. **Check task status**: Scan for tasks/ directories:
+   ```bash
+   find . -type d -name "tasks" -not -path "*/node_modules/*" -not -path "*/archive/*" 2>/dev/null
+   ```
+   For each discovered tasks/ directory, read its INDEX.md to get layer info and task status.
 
 5. **Summarize**: After reading, provide:
    - Project vision (from PRD.md)
@@ -50,8 +51,8 @@ Read project documentation AND the global Product Requirements Document (PRD.md)
 ## Task Status (from tasks/INDEX.md)
 | # | Title | Status | Layer |
 |---|-------|--------|-------|
-| I-1 | ... | ✅ Complete | IndexedEx |
-| I-2 | ... | 🚀 In Progress | IndexedEx |
+| [P]-1 | ... | ✅ Complete | [Layer] |
+| [P]-2 | ... | 🚀 In Progress | [Layer] |
 
 Ready tasks: [list tasks ready for agent]
 Blocked tasks: [list blocked tasks and why]

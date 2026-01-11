@@ -24,10 +24,10 @@ Load project context by reading CLAUDE.md and any referenced documentation.
 **Example output:**
 ```
 Context loaded from CLAUDE.md:
-- Project: IndexedEx - Modular DeFi vault infrastructure
-- Architecture: Diamond Pattern (EIP-2535), Facet-Target-Repo
-- Dependencies: Crane framework, Solady, OpenZeppelin
-- Also read: lib/daosys/lib/crane/CLAUDE.md
+- Project: [Project Name] - [Description]
+- Architecture: [Key patterns]
+- Dependencies: [Key libs/frameworks]
+- Also read: [Referenced CLAUDE.md files]
 
 Ready to assist with this codebase.
 ```
@@ -38,31 +38,36 @@ Ready to assist with this codebase.
 
 ### `/up:plan`
 
-Load project context AND the unified development plan.
+Load project context AND the global PRD and task status.
+
+**Aliases:** `/up:prd`
 
 **What it does:**
 1. Reads CLAUDE.md and referenced documentation
-2. Reads UNIFIED_PLAN.md to understand the task backlog
-3. Shows task status summary table
-4. Identifies ready and blocked tasks
+2. Reads PRD.md for project requirements
+3. Scans for tasks/ directories
+4. Shows task status summary from INDEX.md
+5. Identifies ready and blocked tasks
 
 **Example output:**
 ```
-Context loaded:
-- Project: IndexedEx - Modular DeFi vault infrastructure
-- Architecture: Diamond Pattern (EIP-2535)
+# Project Context Loaded
 
-Task Status:
-| Task | Title                    | Status          |
-|------|--------------------------|-----------------|
-| 1    | V3 Mainnet Fork Tests    | Complete        |
-| 2    | Slipstream Utils         | Complete        |
-| 5    | Protocol DETF (CHIR)     | Ready for Agent |
+## Vision (from PRD.md)
+[Project name] - [Vision statement]
 
-Ready tasks: 5, 6, 7, 8, 9
-Blocked tasks: None
+## Key Requirements
+- [Requirement 1]
+- [Requirement 2]
 
-Ready to assist with this codebase.
+## Task Status (from tasks/INDEX.md)
+| # | Title | Status | Layer |
+|---|-------|--------|-------|
+| [P]-1 | ... | ✅ Complete | [Layer] |
+| [P]-2 | ... | 🚀 In Progress | [Layer] |
+
+Ready tasks: [list]
+Blocked tasks: [list]
 ```
 
 **When to use:** When you need to understand both the codebase and current task status.
@@ -82,17 +87,16 @@ Load project context AND agent task instructions from PROMPT.md.
 **Example output:**
 ```
 Context loaded:
-- Project: IndexedEx
-- Task: 7 - Slipstream Standard Exchange Vault
+- Project: [Project Name]
+- Task: [P]-7 - [Task Title]
 
 Assignment:
-- Implement single-sided deposits for token0 and token1
-- Handle position state transitions
-- Auto-compound trading fees
+- [Key deliverable 1]
+- [Key deliverable 2]
 
 Inventory checks to perform:
-- [ ] Slipstream NFT position manager interface available
-- [ ] SlipstreamUtils from Task 2 ready
+- [ ] [Prerequisite 1]
+- [ ] [Prerequisite 2]
 
 Completion promise: TASK_COMPLETE
 
@@ -103,12 +107,25 @@ Beginning work...
 
 ---
 
+## Layer Detection
+
+The `/up:plan` command scans for tasks/ directories:
+
+```bash
+find . -type d -name "tasks" -not -path "*/node_modules/*" 2>/dev/null
+```
+
+For each discovered tasks/ directory:
+1. Read `tasks/INDEX.md` for layer name and task status
+2. Display consolidated status across all layers
+
 ## Related Files
 
 | File | Purpose |
 |------|---------|
 | `CLAUDE.md` | Project documentation, conventions, architecture |
-| `UNIFIED_PLAN.md` | Task backlog with user stories |
+| `PRD.md` | Global project requirements |
+| `tasks/INDEX.md` | Task backlog with status table |
 | `PROMPT.md` | Agent task instructions (in worktrees) |
 
 ## Workflow Integration

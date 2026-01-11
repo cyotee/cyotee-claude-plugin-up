@@ -19,10 +19,11 @@ This is an alias for `/up:plan`. See that command for full documentation.
    - Target users and use cases
    - Success metrics
 
-4. **Check task status**: Determine the layer you're in and look for the tasks directory:
-   - IndexedEx layer: `tasks/INDEX.md`
-   - daosys layer: `lib/daosys/tasks/INDEX.md`
-   - Crane layer: `lib/daosys/lib/crane/tasks/INDEX.md`
+4. **Check task status**: Scan for tasks/ directories:
+   ```bash
+   find . -type d -name "tasks" -not -path "*/node_modules/*" -not -path "*/archive/*" 2>/dev/null
+   ```
+   For each discovered tasks/ directory, read its INDEX.md to get layer info and task status.
 
 5. **Summarize**: After reading, provide:
    - Project vision (from PRD.md)
