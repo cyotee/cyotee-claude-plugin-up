@@ -2,9 +2,9 @@
 description: Bootstrap context with CLAUDE.md AND read PRD.md for project requirements
 ---
 
-# Context Bootstrap with Project Requirements
+# Context Bootstrap with PRD
 
-Read project documentation AND the global Product Requirements Document (PRD.md).
+Read project documentation AND the Product Requirements Document (PRD.md).
 
 ## Instructions
 
@@ -12,20 +12,25 @@ Read project documentation AND the global Product Requirements Document (PRD.md)
 
 2. **Follow references**: If CLAUDE.md references other CLAUDE.md files (e.g., in submodules), read those as well
 
-3. **Read PRD.md**: Find and read PRD.md at the repository root to understand:
+3. **Read design.yaml** (if exists): Understand repo configuration:
+   - Repo prefix for task IDs
+   - Repo name
+   - Submodule configuration
+
+4. **Read PRD.md**: Find and read PRD.md at the repository root to understand:
    - Project vision and goals
+   - Target users and use cases
    - High-level requirements
    - Key constraints and non-goals
-   - Target users and use cases
    - Success metrics
 
-4. **Check task status**: Scan for tasks/ directories:
+5. **Check task status**: Scan for tasks/ directories:
    ```bash
    find . -type d -name "tasks" -not -path "*/node_modules/*" -not -path "*/archive/*" 2>/dev/null
    ```
    For each discovered tasks/ directory, read its INDEX.md to get layer info and task status.
 
-5. **Summarize**: After reading, provide:
+6. **Summarize**: After reading, provide:
    - Project vision (from PRD.md)
    - Brief technical overview (from CLAUDE.md)
    - Current task status summary (from INDEX.md if exists)
@@ -34,28 +39,39 @@ Read project documentation AND the global Product Requirements Document (PRD.md)
 ## Example Output
 
 ```
-# Project Context Loaded
+═══════════════════════════════════════════════════════════════════
+ CONTEXT LOADED: Project + Requirements
+═══════════════════════════════════════════════════════════════════
 
-## Vision (from PRD.md)
-[Project name] - [1-2 sentence vision statement]
+## Project Overview
 
-## Key Requirements
-- [Requirement 1]
-- [Requirement 2]
-- [Requirement 3]
+Name: {name}
+Purpose: {brief purpose from CLAUDE.md}
+Prefix: {PREFIX} (for task IDs)
 
-## Technical Overview (from CLAUDE.md)
-- Architecture: [key patterns]
-- Dependencies: [key libs/frameworks]
+## Product Requirements (from PRD.md)
+
+Vision: {product vision}
+Goals:
+- {Goal 1}
+- {Goal 2}
+
+Target Users:
+- {User type 1}
+- {User type 2}
 
 ## Task Status (from tasks/INDEX.md)
-| # | Title | Status | Layer |
-|---|-------|--------|-------|
-| [P]-1 | ... | ✅ Complete | [Layer] |
-| [P]-2 | ... | 🚀 In Progress | [Layer] |
 
-Ready tasks: [list tasks ready for agent]
-Blocked tasks: [list blocked tasks and why]
+| ID | Title | Status | Layer |
+|----|-------|--------|-------|
+| {PREFIX}-001 | ... | Complete | Core |
+| {PREFIX}-002 | ... | Ready | Core |
+...
+
+Ready for agent: {PREFIX}-002, {PREFIX}-003
+Blocked: {PREFIX}-005 (waiting on {PREFIX}-003)
+
+═══════════════════════════════════════════════════════════════════
 
 Ready to assist with this codebase.
 ```
@@ -71,3 +87,10 @@ To create one, run: /design:prd
 
 This will interactively gather project requirements and generate PRD.md.
 ```
+
+## Related Commands
+
+- `/up` - Just read CLAUDE.md
+- `/up:prompt` - Bootstrap for agent worktree (reads PROMPT.md)
+- `/backlog` - See detailed task status
+- `/design` - Create a new task

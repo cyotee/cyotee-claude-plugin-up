@@ -1,7 +1,7 @@
 {
   "name": "up",
-  "description": "Context bootstrap commands for CLAUDE.md, PRD.md, and tasks/",
-  "version": "1.1.0",
+  "description": "Context bootstrap commands for CLAUDE.md, PRD.md, and PROMPT.md with mode-aware agent support",
+  "version": "2.0.0",
   "author": {
     "name": "cyotee"
   }
