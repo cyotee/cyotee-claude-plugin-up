@@ -1,12 +1,36 @@
 # up - Context Bootstrap Plugin
 
-Bootstrap Claude Code with project context by reading documentation files.
+Bootstrap your AI coding assistant with project context by reading documentation files.
+
+**Dual-Platform Support:** This plugin works with both Claude Code and OpenCode.
 
 ## Installation
+
+### Claude Code
 
 ```bash
 /plugin marketplace add cyotee/cyotee-claude-plugins
 /plugin install up@cyotee
+```
+
+### OpenCode
+
+Copy or symlink the `.opencode/` directory to your project:
+
+```bash
+# Option 1: Symlink (recommended for development)
+ln -s /path/to/plugins/up/.opencode/commands ~/.config/opencode/commands/up
+
+# Option 2: Copy to project
+cp -r /path/to/plugins/up/.opencode/commands .opencode/commands/
+```
+
+Or reference in your `opencode.json`:
+
+```json
+{
+  "instructions": "{file:.opencode/commands/up.md}"
+}
 ```
 
 ## Commands
@@ -136,6 +160,51 @@ For each discovered tasks/ directory:
 3. /backlog:launch  # Create worktree for a task
 4. /up:prompt       # (In worktree) Load task instructions
 ```
+
+## Directory Structure
+
+```
+up/
+├── .claude-plugin/
+│   └── plugin.json          # Claude Code manifest
+├── .opencode/
+│   └── commands/            # OpenCode-format commands
+│       ├── up.md
+│       ├── plan.md
+│       ├── prd.md
+│       └── prompt.md
+├── commands/                # Claude Code commands (source of truth)
+│   ├── up.md
+│   ├── plan.md
+│   ├── prd.md
+│   └── prompt.md
+├── build/
+│   ├── translate.ts         # Bun/TypeScript translator
+│   └── translate.sh         # Bash translator (fallback)
+├── opencode.json            # OpenCode manifest
+└── README.md
+```
+
+## Building / Syncing
+
+If you modify the Claude Code commands in `commands/`, regenerate the OpenCode versions:
+
+```bash
+# Using Bun (recommended)
+cd plugins/up
+bun run build/translate.ts
+
+# Using Bash (limited agent support)
+./build/translate.sh
+```
+
+## Platform Differences
+
+| Feature | Claude Code | OpenCode |
+|---------|-------------|----------|
+| Command prefix | `/up:plan` | `/plan` |
+| Tool restrictions | Per-command frontmatter | Per-agent config |
+| Model format | `sonnet` | `anthropic/claude-sonnet` |
 
 ## License
 
